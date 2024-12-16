@@ -1342,6 +1342,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   focalPoint: {fileID: 1227559386}
+  scoretext: {fileID: 1250282505}
+  livestext: {fileID: 1545941259}
 --- !u!1001 &7305732181041295649
 PrefabInstance:
   m_ObjectHideFlags: 0
