@@ -289,6 +289,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fd5555088952419ebf0eb82e9096fa5, type: 3}
+--- !u!1 &353642806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 353642807}
+  m_Layer: 0
+  m_Name: EnemyParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &353642807
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353642806}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1211016355
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +554,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -862,7 +893,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 0}
+  sharedProfile: {fileID: 11400000, guid: 0dacef728978e4a4f86f173c94b30592, type: 2}
 --- !u!4 &1525965853
 Transform:
   m_ObjectHideFlags: 0
@@ -1144,9 +1175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63919ff77f64df4bb1db35cceb30acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 7245371880075092755, guid: 54b8c2a2c5571934aba79b195d250384,
-    type: 3}
+  enemyPrefabs:
+  - {fileID: 7245371880075092755, guid: 54b8c2a2c5571934aba79b195d250384, type: 3}
+  - {fileID: 4557962443203825629, guid: a4a01ebb5fbc5c94699b7432161b8624, type: 3}
   playerController: {fileID: 1978895793}
+  enemyParent: {fileID: 353642807}
+  powerUpPrefab: {fileID: 3984942301810656427, guid: fd88ac3736e4ff54baf313512f5d6e9a,
+    type: 3}
 --- !u!4 &1794721746
 Transform:
   m_ObjectHideFlags: 0
@@ -1344,6 +1379,9 @@ MonoBehaviour:
   focalPoint: {fileID: 1227559386}
   scoretext: {fileID: 1250282505}
   livestext: {fileID: 1545941259}
+  powerUpIndicatorPrefab: {fileID: 2017742166996694141, guid: 2056cf2e75dfa7e4cbbb475ed5d31a06,
+    type: 3}
+  powerUpIndicator: {fileID: 0}
 --- !u!1001 &7305732181041295649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1431,3 +1469,4 @@ SceneRoots:
   - {fileID: 1794721746}
   - {fileID: 1745914875}
   - {fileID: 79900848}
+  - {fileID: 353642807}

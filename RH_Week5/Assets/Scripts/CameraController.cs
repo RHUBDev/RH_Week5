@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //lock Cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         camParent = transform.GetChild(0);
@@ -19,8 +20,20 @@ public class CameraController : MonoBehaviour
     {
         float mouseXInput = Input.GetAxis("Mouse X");
         float mouseYInput = Input.GetAxis("Mouse Y");
+
+        //rotate focalpoint and cameraparent separately
         Vector2 rotateDirection = new Vector2(mouseXInput, mouseYInput).normalized;
         transform.Rotate((Vector3.up * rotateDirection.x) * mouseSensitivity * Time.deltaTime);
         camParent.Rotate((Vector3.right * -rotateDirection.y) * mouseSensitivity * Time.deltaTime);
+        
+        //clamp rotation
+        if (camParent.localEulerAngles.x > 84 && camParent.localEulerAngles.x <= 225)
+        {
+            camParent.localRotation = Quaternion.Euler(84, 0, 0);
+        }
+        else if (camParent.localEulerAngles.x > 225)
+        {
+            camParent.localRotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 }

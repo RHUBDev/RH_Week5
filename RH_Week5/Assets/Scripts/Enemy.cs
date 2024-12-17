@@ -5,15 +5,16 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Rigidbody rig;
-    public float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float rigmass = 1f;
     private GameObject player;
-    private SpawnManager spawnmanager;
+
     // Start is called before the first frame update
     void Start()
     {
         rig = GetComponent<Rigidbody>();
+        rig.mass = rigmass;
         player = GameObject.FindWithTag("Player");
-        spawnmanager = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame
@@ -24,7 +25,8 @@ public class Enemy : MonoBehaviour
 
         if(transform.position.y < -1.5f)
         {
-            spawnmanager.Respawn(transform);
+            player.GetComponent<PlayerController>().AddScore();
+            Destroy(gameObject);
         }
     }
 }
