@@ -23,16 +23,80 @@ public class PlayerController : MonoBehaviour
     private Coroutine powerCoroutine;
     private string levelname;
     [SerializeField] private string playernum = "";
+    public TMP_Text infiniteText;
+    public GameObject hintText;
 
     // Start is called before the first frame update
     void Start()
     {
-
-        levelname = SceneManager.GetActiveScene().name;
-        if (levelname != "Menu" && levelname != "InfiniteScene")
+        if (!PlayerPrefs.HasKey("LoadingLevel") || SceneManager.GetActiveScene().name == "Menu")
+        {
+            PlayerPrefs.SetString("LoadingLevel", "Menu");
+            levelname = "Menu";
+        }
+        else
+        {
+            levelname = PlayerPrefs.GetString("LoadingLevel");
+        }
+        if (levelname != "Menu" && levelname != "InfiniteScene" && levelname != "InfiniteMultiplayer")
         {
             lives = 3;
         }
+        if(levelname == "Menu" || levelname == "MyScene1" || levelname == "InfiniteScene")
+        {
+            if(playernum != "")
+            {
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            if (playernum == "")
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        if (levelname == "MyScene1")
+        {
+            if (playernum == "")
+            {
+                livestext.text = "Lives: " + lives;
+            }
+        }
+        else if (levelname != "InfiniteScene" && levelname != "Menu" && levelname != "InfiniteMultiplayer")
+        {
+            if (playernum == "1")
+            {
+                livestext.text = "Blue Lives: " + lives;
+            }
+            else if (playernum == "2")
+            {
+                livestext.text = "Green Lives: " + lives;
+            }
+        }
+
+        if (levelname == "InfiniteScene" || levelname == "InfiniteMultiplayer")
+        {
+            hintText.SetActive(true);
+        }
+        else if (levelname == "MyScene1")
+        {
+            infiniteText.text = "[Single Player]";
+        }
+        else if (levelname == "BattleMultiplayer")
+        {
+            infiniteText.text = "[Battle Multiplayer]";
+        }
+        else if (levelname == "CompetitiveMultiplayer")
+        {
+            infiniteText.text = "[Competitive Multiplayer]";
+        }
+        else if (levelname == "CoOpMultiplayer")
+        {
+            infiniteText.text = "[Co-Op Multiplayer]";
+        }
+
         //save startpos
         startpos = transform.position;
         rig = GetComponent<Rigidbody>();
@@ -66,7 +130,7 @@ public class PlayerController : MonoBehaviour
                 lives -= 1;
                 livestext.text = "Lives: " + lives;
             }
-            else if(levelname != "InfiniteScene" && levelname != "Menu")
+            else if(levelname != "InfiniteScene" && levelname != "Menu" && levelname != "InfiniteMultiplayer")
             {
                 lives -= 1;
                 if (playernum == "1")
@@ -116,9 +180,10 @@ public class PlayerController : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
-            //'Q' to go to Menu
-            if (Input.GetKeyDown(KeyCode.Q))
+            //'M' to go to Menu
+            if (Input.GetKeyDown(KeyCode.M))
             {
+                PlayerPrefs.SetString("LoadingLevel", "Menu");
                 SceneManager.LoadScene("Menu");
             }
         }

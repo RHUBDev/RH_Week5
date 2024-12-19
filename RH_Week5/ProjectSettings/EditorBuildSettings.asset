@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CoOpMultiplayer.unity
     guid: 4b6f69437e5394d46b8bf35dec4d1457
+  - enabled: 1
+    path: Assets/Scenes/OmniScene.unity
+    guid: 5d8638b805422544fa0cbb5329bcd54d
   m_configObjects: {}

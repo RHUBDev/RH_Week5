@@ -25,10 +25,18 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        levelname = SceneManager.GetActiveScene().name;
-        wave += 1;
+        if (!PlayerPrefs.HasKey("LoadingLevel") || SceneManager.GetActiveScene().name == "Menu")
+        {
+            PlayerPrefs.SetString("LoadingLevel", "Menu");
+            levelname = "Menu";
+        }
+        else
+        {
+            levelname = PlayerPrefs.GetString("LoadingLevel");
+        }
+        //wave += 1;
         //Spawn random enemies and powerup on start 
-        SpawnNextWave();
+        //SpawnNextWave();
     }
 
     Vector3 GenerateSpawnPotition(float yPos)
@@ -42,22 +50,25 @@ public class SpawnManager : MonoBehaviour
 
     private void Update()
     {
-        if (enemyParent.childCount == 0)
+        if (levelname != "BattleMultiplayer")
         {
-            //increment wave number
-            wave += 1;
-            //once enemies dead, spawn the next wave, or spawn the boss fight if next wave is a multiple of 'bosswave' number
-            if (wave % bosswave == 0)
+            if (enemyParent.childCount == 0)
             {
-                SpawnBossBattle();
+                //increment wave number
+                wave += 1;
+                //once enemies dead, spawn the next wave, or spawn the boss fight if next wave is a multiple of 'bosswave' number
+                if (wave % bosswave == 0)
+                {
+                    SpawnBossBattle();
+                }
+                else
+                {
+                    SpawnNextWave();
+                }
+                //reset kills this wave
+                wavekills = 0;
+                scoretext.text = "Wave:Kills: " + wave + ":" + wavekills;
             }
-            else
-            {
-                SpawnNextWave();
-            }
-            //reset kills this wave
-            wavekills = 0;
-            scoretext.text = "Wave:Kills: " + wave + ":" + wavekills;
         }
     }
 

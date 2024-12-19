@@ -11,62 +11,86 @@ public class Menu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.SetString("LoadingLevel", "Menu");
         int highwave = 0;
         int highkills = 0;
+        int multihighwave = 0;
+        int multihighkills = 0;
+
         if (PlayerPrefs.HasKey("HighWave"))
         {
             highwave = PlayerPrefs.GetInt("HighWave");
             highkills = PlayerPrefs.GetInt("HighKills");
         }
-        scorestext.text = "HighScore:\nWave: " + highwave + ",\nKills: " + highkills;
+        if (PlayerPrefs.HasKey("MultiHighWave"))
+        {
+            multihighwave = PlayerPrefs.GetInt("MultiHighWave");
+            multihighkills = PlayerPrefs.GetInt("MultiHighKills");
+        }
+        scorestext.text = "HighScore:\nWave: " + highwave + ",\nKills: " + highkills + "\n2 Player HighScore:\nWave: " + multihighwave + ",\nKills: " + multihighkills;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            LoadMyScene1();
+            PlayerPrefs.SetString("LoadingLevel", "MyScene1");
+            SceneManager.LoadScene("OmniScene");
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            LoadInfiniteScene();
+            PlayerPrefs.SetString("LoadingLevel", "InfiniteScene");
+            SceneManager.LoadScene("OmniScene");
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            LoadBattleMultiplayer();
+            PlayerPrefs.SetString("LoadingLevel", "BattleMultiplayer");
+            SceneManager.LoadScene("OmniScene");
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            LoadCompetitiveMultiplayer();
+            PlayerPrefs.SetString("LoadingLevel", "CompetitiveMultiplayer");
+            SceneManager.LoadScene("OmniScene");
         }
         else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            LoadCoOpMultiplayer();
+            PlayerPrefs.SetString("LoadingLevel", "CoOpMultiplayer");
+            SceneManager.LoadScene("OmniScene");
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            PlayerPrefs.SetString("LoadingLevel", "InfiniteMultiplayer");
+            SceneManager.LoadScene("OmniScene");
+        }
+    }
+
+    public void LoadOmniScene()
+    {
+        SceneManager.LoadScene("OmniScene");
     }
 
     public void LoadMyScene1()
     {
-        SceneManager.LoadScene("MyScene1");
+       PlayerPrefs.SetString("LoadingLevel", "MyScene1");
     }
 
     public void LoadInfiniteScene()
     {
-        SceneManager.LoadScene("InfiniteScene");
+        PlayerPrefs.SetString("LoadingLevel", "InfiniteScene");
     }
 
     public void LoadBattleMultiplayer()
     {
-        SceneManager.LoadScene("BattleMultiplayer");
+        PlayerPrefs.SetString("LoadingLevel", "BattleMultiplayer");
     }
 
     public void LoadCompetitiveMultiplayer()
     {
-        SceneManager.LoadScene("CompetitiveMultiplayer");
+        PlayerPrefs.SetString("LoadingLevel", "CompetitiveMultiplayer");
     }
 
     public void LoadCoOpMultiplayer()
     {
-        SceneManager.LoadScene("CoOpMultiplayer");
+        PlayerPrefs.SetString("LoadingLevel", "CoOpMultiplayer");
     }
 }
