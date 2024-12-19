@@ -14,21 +14,26 @@ public class Menu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //unlock cursor on Menu
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         if (PlayerPrefs.HasKey("Mouse Sensitivity"))
         {
+            //Get/Set mouse sensitivity slider value
             slider.value = PlayerPrefs.GetFloat("Mouse Sensitivity");
         }
         else
         {
-            slider.value = 400;
+            slider.value = 300;
         }
-        mousetext.text = "Mouse Sensitivity\n\n" + slider.value;
+        mousetext.text = "Mouse\n\nSensitivity\n\n" + slider.value;
         PlayerPrefs.SetString("LoadingLevel", "Menu");
         int highwave = 0;
         int highkills = 0;
         int multihighwave = 0;
         int multihighkills = 0;
 
+        //show previous high scores
         if (PlayerPrefs.HasKey("HighWave"))
         {
             highwave = PlayerPrefs.GetInt("HighWave");
@@ -39,21 +44,25 @@ public class Menu : MonoBehaviour
             multihighwave = PlayerPrefs.GetInt("MultiHighWave");
             multihighkills = PlayerPrefs.GetInt("MultiHighKills");
         }
-        scorestext.text = "HighScore:\nWave: " + highwave + ",\nKills: " + highkills + "\nCo-Op HighScore:\nWave: " + multihighwave + ",\nKills: " + multihighkills;
+        //Googled how to do rich text colours again
+        scorestext.text = "<color=blue>HighScore:\nWave: " + highwave + ",\nKills: " + highkills + "\n</color><color=green>Co-Op HighScore:\nWave: " + multihighwave + ",\nKills: " + multihighkills +"</color>";
     }
 
     public void OnSliderChanged()
     {
-        mousetext.text = "Mouse Sensitivity\n\n" + slider.value;
+        //set mouse sensitivity text after slider has been changed
+        mousetext.text = "Mouse\n\nSensitivity\n\n" + slider.value;
     }
 
     private void SetMouse()
     {
+        //save mouse sensitivity value
         PlayerPrefs.SetFloat("Mouse Sensitivity", slider.value);
     }
 
     public void Button1()
     {
+        //save the name of the level type we are loading, so we can load the right settings in the game itself
         SetMouse();
         PlayerPrefs.SetString("LoadingLevel", "MyScene1");
         SceneManager.LoadScene("OmniScene");
