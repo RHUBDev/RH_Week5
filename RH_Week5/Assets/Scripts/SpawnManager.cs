@@ -21,6 +21,9 @@ public class SpawnManager : MonoBehaviour
     public TMP_Text endtext;
     public GameObject hintstext;
     private string levelname;
+    public AudioSource audiosource;
+    public AudioClip winsound;
+    public AudioClip losesound;
 
     // Start is called before the first frame update
     void Start()
@@ -126,6 +129,7 @@ public class SpawnManager : MonoBehaviour
 
     public void DoScores(Transform player)
     {
+        //if single player, do scores
         if (levelname == "MyScene1")
         {
             //show restart/quit keys in hud
@@ -142,16 +146,19 @@ public class SpawnManager : MonoBehaviour
             //show unlucky text if failed to beat old score
             if ((wave < highwave) || (wave == highwave && wavekills <= highkills))
             {
+                audiosource.PlayOneShot(losesound);
                 endtext.text = "Unlucky!\nScore: Wave:" + wave + ", Kills: " + wavekills + "\nHighScore: Wave: " + highwave + ", Kills: " + highkills;
             }
             //if beat high scores, set new ones, and show win text
             else if ((wave == highwave && wavekills > highkills) || (wave > highwave))
             {
+                audiosource.PlayOneShot(winsound, 0.5f);
                 endtext.text = "New High Score!\nScore: Wave:" + wave + ", Kills: " + wavekills + "\nOld Score: Wave: " + highwave + ", Kills: " + highkills;
                 PlayerPrefs.SetInt("HighWave", wave);
                 PlayerPrefs.SetInt("HighKills", wavekills);
             }
         }
+        //if co-op, do scores
         else if (levelname == "CoOpMultiplayer")
         {
             //show restart/quit keys in hud
@@ -168,18 +175,22 @@ public class SpawnManager : MonoBehaviour
             //show unlucky text if failed to beat old score
             if ((wave < highwave) || (wave == highwave && wavekills <= highkills))
             {
+                audiosource.PlayOneShot(losesound);
                 endtext.text = "Unlucky!\nScore: Wave:" + wave + ", Kills: " + wavekills + "\nHighScore: Wave: " + highwave + ", Kills: " + highkills;
             }
             //if beat high scores, set new ones, and show win text
             else if ((wave == highwave && wavekills > highkills) || (wave > highwave))
             {
+                audiosource.PlayOneShot(winsound);
                 endtext.text = "New High Score!\nScore: Wave:" + wave + ", Kills: " + wavekills + "\nOld Score: Wave: " + highwave + ", Kills: " + highkills;
                 PlayerPrefs.SetInt("MultiHighWave", wave);
                 PlayerPrefs.SetInt("MultiHighKills", wavekills);
             }
         }
+        //if multiplayer battle, show winner
         else if (levelname == "BattleMultiplayer" || levelname == "CompetitiveMultiplayer")
         {
+            audiosource.PlayOneShot(losesound);
             //show restart/quit keys in hud
             hintstext.SetActive(true);
             string otherplayername = "Blue Player";
@@ -188,7 +199,7 @@ public class SpawnManager : MonoBehaviour
                 otherplayername = "Green Player";
             }
             //show win text
-            endtext.text = otherplayername + " won,\n" + player.name + " lost";
+            endtext.text = otherplayername + " Won!\n" + player.name + " Lost.";
         }
     }
 }

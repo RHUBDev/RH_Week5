@@ -25,10 +25,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string playernum = "";
     public TMP_Text infiniteText;
     public GameObject hintText;
+    public AudioSource audiosource;
+    public AudioClip pushsound;
+    public AudioClip lazersound;
+    public AudioClip powerupsound;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Please excuse the long start function!
+
+        //if 'LoadingLevel' is null, or scene is the Menu, set LoadingLevel to "Menu"
         if (!PlayerPrefs.HasKey("LoadingLevel") || SceneManager.GetActiveScene().name == "Menu")
         {
             PlayerPrefs.SetString("LoadingLevel", "Menu");
@@ -36,14 +43,17 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            //else set levelname to the saved 'LoadingLevel'
             levelname = PlayerPrefs.GetString("LoadingLevel");
         }
         if (levelname != "Menu" && levelname != "InfiniteScene" && levelname != "InfiniteMultiplayer")
         {
+            //if lives shouldn't be infinite, set to 3
             lives = 3;
         }
         if(levelname == "Menu" || levelname == "MyScene1" || levelname == "InfiniteScene")
         {
+            //if single player level, destroy mulitiplayer players from scene
             if(playernum != "")
             {
                 Destroy(gameObject);
@@ -51,6 +61,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            //else if multiplayer level, destroy single player 'Player'
             if (playernum == "")
             {
                 Destroy(gameObject);
@@ -59,13 +70,14 @@ public class PlayerController : MonoBehaviour
 
         if (levelname == "MyScene1")
         {
+            //if in single player level, set initial Lives text
             if (playernum == "")
             {
                 livestext.text = "Lives: " + lives;
             }
         }
         else if (levelname != "InfiniteScene" && levelname != "Menu" && levelname != "InfiniteMultiplayer")
-        {
+        {//if in multiplayer level, set initial Lives texts
             if (playernum == "1")
             {
                 livestext.text = "Blue Lives: " + lives;
@@ -78,10 +90,12 @@ public class PlayerController : MonoBehaviour
 
         if (levelname == "InfiniteScene" || levelname == "InfiniteMultiplayer")
         {
+            //if infinite test level, show controls on screen of how to go back to menu
             hintText.SetActive(true);
         }
         else if (levelname == "MyScene1")
         {
+            //show name of level in top corner, in case player forgets
             infiniteText.text = "[Single Player]";
         }
         else if (levelname == "BattleMultiplayer")
@@ -127,11 +141,13 @@ public class PlayerController : MonoBehaviour
         {
             if (levelname == "MyScene1")
             {
+                //if single player, remove life
                 lives -= 1;
                 livestext.text = "Lives: " + lives;
             }
             else if(levelname != "InfiniteScene" && levelname != "Menu" && levelname != "InfiniteMultiplayer")
             {
+                //if multiplayer and not infinite mode, remove life
                 lives -= 1;
                 if (playernum == "1")
                 {
@@ -144,6 +160,7 @@ public class PlayerController : MonoBehaviour
             }
             if (lives > 0)
             {
+                //respawn player
                 rig.velocity = Vector3.zero;
                 rig.angularVelocity = Vector3.zero;
                 transform.position = startpos;
@@ -156,12 +173,14 @@ public class PlayerController : MonoBehaviour
                 {
                     if (levelname == "BattleMultiplayer" || levelname == "CompetitiveMultiplayer")
                     {
+                        //if multiplayer battle and one of them died, end game
                         Time.timeScale = 0.0f;
                         //Do high scores
                         GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>().DoScores(transform);
                     }
                     else
                     {
+                        //else, if co-op game, destroy the dead player and let the other continue playing
                         Destroy(gameObject);
                     }
                 }
@@ -194,6 +213,7 @@ public class PlayerController : MonoBehaviour
         //we hit the powerup, so add indicator and start the timer
         if (other.transform.CompareTag("PowerUp"))
         {
+            audiosource.PlayOneShot(powerupsound);
             Destroy(other.gameObject);
             //If we already have it, stop the old coroutine
             if (powerCoroutine != null)
@@ -207,6 +227,7 @@ public class PlayerController : MonoBehaviour
         //if we hit the Fire power up, shoot a lazer at every enemy
         if (other.transform.CompareTag("FireUp"))
         {
+            audiosource.PlayOneShot(lazersound);
             Destroy(other.gameObject);
             for(int i = 0; i < enemyParent.childCount; i++)
             {
@@ -230,6 +251,7 @@ public class PlayerController : MonoBehaviour
         //if hit enemy while powered up, add force
         if (collision.transform.CompareTag("Enemy") && poweredup)
         {
+            audiosource.PlayOneShot(pushsound);
             collision.gameObject.GetComponent<Rigidbody>().AddForce((collision.transform.position - transform.position).normalized * powerForce, ForceMode.Impulse);
         }
     }

@@ -6,9 +6,12 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private float mouseSensitivity;
     private Transform camParent;
+
     // Start is called before the first frame update
     void Start()
     {
+
+        mouseSensitivity = PlayerPrefs.GetFloat("Mouse Sensitivity");
         //lock Cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
