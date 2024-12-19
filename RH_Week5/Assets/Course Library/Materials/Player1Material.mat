@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PolygonPrototype_Texture_Grid_07
+  m_Name: Player1Material
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 2100000, guid: d758e85bbcd781542a2676ce5d55e51d, type: 2}
+  m_Parent: {fileID: 2100000, guid: c928c3ddace460e49814cddedc82ce3a, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _EMISSION
@@ -28,9 +28,9 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.9864793, b: 0, a: 1}
-    - _Color: {r: 1, g: 0.9864792, b: 0, a: 1}
-    - _EmissionColor: {r: 256, g: 247.67038, b: 0, a: 1}
+    - _BaseColor: {r: 0, g: 0, b: 1, a: 1}
+    - _Color: {r: 0, g: 0, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 1.5384527, b: 191.74902, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &3514615256952709855
 MonoBehaviour:

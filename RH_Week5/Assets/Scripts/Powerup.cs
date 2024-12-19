@@ -8,6 +8,7 @@ public class Powerup : MonoBehaviour
 
     private void Update()
     {
+        //rotate the spawned powerup
         transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
     }
 }

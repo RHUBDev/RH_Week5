@@ -6,6 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 0f14ef922881e444181b99e11a49a826
+  - enabled: 1
     path: Assets/Scenes/MyScene1.unity
     guid: 3f21185ade95bf94cac37e194e9c97c8
+  - enabled: 1
+    path: Assets/Scenes/InfiniteScene.unity
+    guid: 3124856ff160a40418d6de8023dcbed9
+  - enabled: 1
+    path: Assets/Scenes/BattleMultiplayer.unity
+    guid: 0ab7d8aee9c140441ac274ea08759a6f
+  - enabled: 1
+    path: Assets/Scenes/CompetitiveMultiplayer.unity
+    guid: a616d811e4e056d40862911123737f31
+  - enabled: 1
+    path: Assets/Scenes/CoOpMultiplayer.unity
+    guid: 4b6f69437e5394d46b8bf35dec4d1457
   m_configObjects: {}

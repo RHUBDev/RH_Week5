@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
         //lock Cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        //get camParent
         camParent = transform.GetChild(0);
     }
 
